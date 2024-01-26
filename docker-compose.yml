@@ -1,0 +1,13 @@
+version: "2.4"
+
+services:
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: nestjstemplate
+    ports:
+      - 54320:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
