@@ -8,12 +8,16 @@ RUN chmod +x /tini
 
 WORKDIR /app
 
+RUN npm i -g @nestjs/cli
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=yarn.lock,target=yarn.lock \
+    --mount=type=cache,target=/root/.yarn \
+    yarn install --production --frozen-lockfile
+
 COPY --chown=node:node . .
 
 ENV NODE_ENV=production
 
-RUN npm i -g @nestjs/cli
-RUN yarn --frozen-lockfile --production
 RUN yarn build
 
 EXPOSE 3000
